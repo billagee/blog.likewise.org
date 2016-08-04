@@ -1,10 +1,7 @@
----
-layout: post
-title: "Dockerized Ghostdriver Selenium Tests"
+Title: Dockerized Ghostdriver Selenium Tests
 date: 2016-02-14 00:23
-comments: true
-categories: Docker Linux Selenium WebDriver Automation PhantomJS Python Testing
----
+slug: dockerized-ghostdriver-selenium-tests
+tags: Docker, Linux, Selenium, WebDriver, Automation, PhantomJS, Python
 
 (tl;dr: This post describes how to build a Docker image for running Python GhostDriver/PhantomJS tests in a container.)
 
@@ -28,21 +25,20 @@ Down to business - let's build a Docker image.
 This is an outline of the steps we'll be performing:
 
 1. We'll create a Docker image which contains:
-
-   * Ubuntu 14.04 (as the underlying base image)
-   * PhantomJS
-   * Python 2.7 and pip
-   * The Selenium WebDriver Python bindings
-   * A Python script that uses Ghostdriver and PhantomJS to perform a Google search test
+    * Ubuntu 14.04 (as the underlying base image)
+    * PhantomJS
+    * Python 2.7 and pip
+    * The Selenium WebDriver Python bindings
+    * A Python script that uses Ghostdriver and PhantomJS to perform a Google search test
 
 1. We'll then use that image to run a container that:
-   * Executes the Python Google search test script
-   * Exits with an error if the test fails
-   * Automatically removes the container when the test is complete
+    * Executes the Python Google search test script
+    * Exits with an error if the test fails
+    * Automatically removes the container when the test is complete
 
 1. Next, we'll do some interactive work in a container, by:
-   * Launching bash in a container (instead of the search test script)
-   * In the containerized bash shell, we'll edit and manually run the modified test script
+    * Launching bash in a container (instead of the search test script)
+    * In the containerized bash shell, we'll edit and manually run the modified test script
 
 1. We'll create a Makefile to repeat the tasks above with fewer keystrokes.
 
@@ -60,29 +56,27 @@ I'm using a Mac to write this guide - specifically, I have Docker Toolbox 1.8.2a
 
 - For the first step, create a new dir and cd into it:
 
-```
-mkdir myimage && cd myimage
-```
+        :::shell
+        mkdir myimage && cd myimage
 
 - Now create a file named ```Dockerfile``` in the ```myimage``` dir.
 
 Inside the empty Dockerfile, paste these lines:
 
-```
-FROM ubuntu:14.04
+    :::shell
+    FROM ubuntu:14.04
 
-# Install the phantomjs browser, Python, and the Python Selenium bindings
-RUN apt-get update && apt-get install -y \
-        phantomjs \
-        python2.7 \
-        python-pip \
-        && pip install selenium
+    # Install the phantomjs browser, Python, and the Python Selenium bindings
+    RUN apt-get update && apt-get install -y \
+            phantomjs \
+            python2.7 \
+            python-pip \
+            && pip install selenium
 
-# Run a Ghostdriver demo script
-ENV my_test_script=google-search-test.py
-COPY ${my_test_script} /
-CMD "/${my_test_script}"
-```
+    # Run a Ghostdriver demo script
+    ENV my_test_script=google-search-test.py
+    COPY ${my_test_script} /
+    CMD "/${my_test_script}"
 
 Notice the line ```ENV my_test_script=google-search-test.py```
 
@@ -94,11 +88,10 @@ And eventually when we reach the point of launching a container, that Python scr
 
 For that script's content, you can start with a simple hello world example:
 
-```
-#!/usr/bin/env python
+    :::python
+    #!/usr/bin/env python
 
-print "Hello world!"
-```
+    print "Hello world!"
 
 Or, you could go for the gusto and use a more complete GhostDriver script, such as the one from the Github repo related to this post:
 
@@ -106,15 +99,13 @@ Or, you could go for the gusto and use a more complete GhostDriver script, such 
 
 - Once the ```google-search-test.py``` file has been created, you need to make it executable so that it will also be executable in the container:
 
-```
-$ chmod 755 google-search-test.py
-```
+        :::bash
+        chmod 755 google-search-test.py
 
 - Now, try building your image:
 
-```
-docker build --rm --force-rm -t myrepo/ghostdriver-py27 .
-```
+        :::bash
+        docker build --rm --force-rm -t myrepo/ghostdriver-py27 .
 
 Make sure not to omit the build command's trailing ```.```
 
@@ -124,33 +115,30 @@ The build command output should show the ```apt-get update``` and ```apt-get ins
 
 Now try executing your Python script in a container, with ```docker run```.
 
-```
-docker run --rm myrepo/ghostdriver-py27
-```
+    :::bash
+    docker run --rm myrepo/ghostdriver-py27
 
 When the container exits, you should see the output of your Python script.
 
 e.g., if your Python script is the hi world example, the run output should resemble:
 
-```
-$ docker run --rm myrepo/ghostdriver-py27
-Hello world!
-```
+    :::bash
+    $ docker run --rm myrepo/ghostdriver-py27
+    Hello world!
 
 And here is the output when running the GhostDriver example script from <a target="_blank" href="https://github.com/billagee/ghostdriver-py27/blob/master/google-search-test.py">https://github.com/billagee/ghostdriver-py27/blob/master/google-search-test.py</a>:
 
-```
-$ docker run --rm myrepo/ghostdriver-py27
-.
-----------------------------------------------------------------------
-Ran 1 test in 2.350s
+    :::bash
+    $ docker run --rm myrepo/ghostdriver-py27
+    .
+    ----------------------------------------------------------------------
+    Ran 1 test in 2.350s
 
-OK
-Navigating to 'http://www.google.com'...
-Checking search box presence...
-Performing search request...
-current_url is now 'http://www.google.com/search?hl=en&source=hp&biw=&bih=&q=selenium&gbv=2&oq=selenium&gs_l=heirloom-hp.12...185.189.0.214.8.1.0.0.0.0.0.0..0.0....0...1ac.1.34.heirloom-hp..8.0.0.pxP-og9Td_o'
-```
+    OK
+    Navigating to 'http://www.google.com'...
+    Checking search box presence...
+    Performing search request...
+    current_url is now 'http://www.google.com/search?hl=en&source=hp&biw=&bih=&q=selenium&gbv=2&oq=selenium&gs_l=heirloom-hp.12...185.189.0.214.8.1.0.0.0.0.0.0..0.0....0...1ac.1.34.heirloom-hp..8.0.0.pxP-og9Td_o'
 
 Note that if you make changes to the Python script, re-running the ```docker build``` command will add your new changes to the image.
 
@@ -166,9 +154,8 @@ Passing ```bash``` as the executable and using the ```-it``` options to ```docke
 
 The full command to get an interactive shell in a container looks like:
 
-```
-docker run -it myrepo/ghostdriver-py27 bash
-```
+    :::bash
+    docker run -it myrepo/ghostdriver-py27 bash
 
 You should then see a shell prompt, which you can use to run arbitrary commands (as root) in your Ubuntu container.
 
@@ -176,67 +163,62 @@ For example, you might check the container's phantomjs version, or check the ker
 
 (Note I'm testing on a Mac running Docker Toolbox, so the ```uname``` output may differ from yours.)
 
-```
-root@9ed850542508:/# phantomjs --version
-1.9.0
+    :::shell
+    root@9ed850542508:/# phantomjs --version
+    1.9.0
 
-root@9ed850542508:/# python --version
-Python 2.7.6
+    root@9ed850542508:/# python --version
+    Python 2.7.6
 
-root@9ed850542508:/# lsb_release -a
-No LSB modules are available.
-Distributor ID: Ubuntu
-Description:    Ubuntu 14.04.3 LTS
-Release:    14.04
-Codename:   trusty
+    root@9ed850542508:/# lsb_release -a
+    No LSB modules are available.
+    Distributor ID: Ubuntu
+    Description:    Ubuntu 14.04.3 LTS
+    Release:    14.04
+    Codename:   trusty
 
-root@9ed850542508:/# uname -a
-Linux 9ed850542508 4.0.9-boot2docker #1 SMP Thu Sep 10 20:39:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
-```
+    root@9ed850542508:/# uname -a
+    Linux 9ed850542508 4.0.9-boot2docker #1 SMP Thu Sep 10 20:39:20 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 
 In the container, the Python script that you placed in the image with ```COPY ${my_test_script} /``` can be found at ```/google-search-test.py```:
 
-```
-root@05f05f9d7537:/# ls -la /google-search-test.py
--rwxr-xr-x 1 root root 1065 Feb 14 04:08 /google-search-test.py
-```
+    :::bash
+    root@05f05f9d7537:/# ls -la /google-search-test.py
+    -rwxr-xr-x 1 root root 1065 Feb 14 04:08 /google-search-test.py
 
 Another useful thing to do is to install your favorite editor, edit the container's Python script, then run the modified script manually:
 
-```
-root@05f05f9d7537:/# apt-get install vim -y
+    :::bash
+    root@05f05f9d7537:/# apt-get install vim -y
 
-# ...snip package installation output...
+    # ...snip package installation output...
 
-root@05f05f9d7537:/# vim /google-search-test.py
+    root@05f05f9d7537:/# vim /google-search-test.py
 
-# Make some edits, then launch your modified script:
+    # Make some edits, then launch your modified script:
 
-root@05f05f9d7537:/# /google-search-test.py
-```
+    root@05f05f9d7537:/# /google-search-test.py
 
 NOTE: When you exit the containerized shell, if the container was launched with ```docker run --rm```,
 the container will be destroyed, along with any changes to files you made while interactively working within it.
 
 But if you don't use ```docker run --rm```, once you exit the container shell, you'll see the container in the output of ```docker ps -a```:
 
-```
-$ docker run -it myrepo/ghostdriver-py27 bash
+    :::bash
+    $ docker run -it myrepo/ghostdriver-py27 bash
 
-root@8a563421bdb3:/# exit
-exit
+    root@8a563421bdb3:/# exit
+    exit
 
-$ docker ps -a
-CONTAINER ID        IMAGE                       COMMAND             CREATED             STATUS                      PORTS               NAMES
-8a563421bdb3        myrepo/ghostdriver-py27     "bash"              7 seconds ago       Exited (0) 2 seconds ago                        mad_curie
-```
+    $ docker ps -a
+    CONTAINER ID        IMAGE                       COMMAND             CREATED             STATUS                      PORTS               NAMES
+    8a563421bdb3        myrepo/ghostdriver-py27     "bash"              7 seconds ago       Exited (0) 2 seconds ago                        mad_curie
 
 To remove the container manually you can pass its CONTAINER ID or NAME to ```docker rm```:
 
-```
-$ docker rm 8a563421bdb3
-8a563421bdb3
-```
+    :::bash
+    $ docker rm 8a563421bdb3
+    8a563421bdb3
 
 ## 4. Creating a Makefile
 
@@ -246,23 +228,20 @@ If you're going to be frequently building your image and running containers on t
 
 For example, building your image could look like:
 
-```
-$ make build
-```
+    :::bash
+    $ make build
 
 And to run a container:
 
-```
-$ make
+    :::bash
+    $ make
 
-# ...or `make run` if you want to be explicit
-```
+    # ...or `make run` if you want to be explicit
 
 Launching a containerized shell could look like:
 
-```
-$ make shell
-```
+    :::bash
+    $ make shell
 
 If you're not familiar with Makefiles, setting one up simply involves creating a file named ```Makefile``` (in this case, you should put it in the same dir with your ```Dockerfile```).
 
@@ -272,16 +251,14 @@ If you don't want your Makefile to use the example image name (```myrepo/ghostdr
 
 - NOTE! If running make gives you a separator error like:
 
-```
-$ make
-Makefile:11: *** missing separator.  Stop.
-```
+        :::bash
+        make
+        Makefile:11: *** missing separator.  Stop.
 
 ...then check to make sure all indentation in your Makefile is done with tab characters. If all else fails, use wget or curl to download the Makefile gist shown below. For example:
 
-```
-wget https://gist.githubusercontent.com/billagee/a11874bb83d54ffcfaf8/raw/f4cd1e0bd88d56959286774adba77a81e7d2f20d/Makefile
-```
+    :::bash
+    wget https://gist.githubusercontent.com/billagee/a11874bb83d54ffcfaf8/raw/f4cd1e0bd88d56959286774adba77a81e7d2f20d/Makefile
 
 <script src="https://gist.github.com/billagee/a11874bb83d54ffcfaf8.js"></script>
 
@@ -297,17 +274,16 @@ Set the repository name to whatever you like (e.g., ```experiment```), and choos
 
 - To push your existing local image (```myrepo/ghostdriver-py27```) to Docker Hub without rebuilding it under a new name, you can perform these steps on the command line:
 
-  * ```docker login```
-  * Tag your existing image with the new repo's name: ```docker tag myrepo/ghostdriver-py27 YOUR_DOCKER_USERNAME/YOUR_REPO_NAME```
-  * Push the image to its new repo in Docker Hub: ```docker push YOUR_DOCKER_USERNAME/YOUR_REPO_NAME```
+      * ```docker login```
+      * Tag your existing image with the new repo's name: ```docker tag myrepo/ghostdriver-py27 YOUR_DOCKER_USERNAME/YOUR_REPO_NAME```
+      * Push the image to its new repo in Docker Hub: ```docker push YOUR_DOCKER_USERNAME/YOUR_REPO_NAME```
 
 Note you'll need to replace ```YOUR_DOCKER_USERNAME/YOUR_REPO_NAME``` with your Docker username and the Docker Hub repo name you chose - e.g., I used ```billagee/experiment```, which looks like this on the CLI:
 
-```
-$ docker tag myrepo/ghostdriver-py27 billagee/experiment
+    :::python
+    docker tag myrepo/ghostdriver-py27 billagee/experiment
 
-$ docker push billagee/experiment
-```
+    docker push billagee/experiment
 
 Once that step is completed, others will be able to ```docker pull``` your image.
 
