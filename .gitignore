@@ -8,3 +8,4 @@
 output
 env
 srv.pid
+pelican.pid
