@@ -25,6 +25,11 @@ DEFAULT_LANG = u'en'
 ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}/'
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{slug}/index.html'
 
+# Don't categories on main navigation menu
+DISPLAY_CATEGORIES_ON_MENU = False
+#CATEGORY_URL = ''
+#CATEGORY_SAVE_AS = ''
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
