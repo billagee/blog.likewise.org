@@ -1,10 +1,7 @@
----
-layout: post
-title: "Scrolling to an Element with the Python Bindings for Selenium WebDriver"
-date: 2015-04-26 23:43
-comments: true
-categories: Selenium WebDriver Automation Chrome Python Testing
----
+Title: Scrolling to an Element with the Python Bindings for Selenium WebDriver
+Date: 2015-04-26 23:43
+Tags: Selenium, WebDriver, Automation, Chrome, Python, Testing
+Slug: scrolling-to-an-element-with-the-python-bindings-for-selenium-webdriver
 
 When using <a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium WebDriver</a>, you might encounter a situation where you need to scroll an element into view.
 

@@ -1,10 +1,8 @@
----
-layout: post
-title: "Automatically capture browser screenshots after failed Python GhostDriver tests"
-date: 2015-01-22 01:37
-comments: true
-categories: Selenium WebDriver Automation PhantomJS GhostDriver Python Testing
----
+Title: Automatically capture browser screenshots after failed Python GhostDriver tests
+Date: 2015-01-22 01:37
+Tags: Selenium, WebDriver, Automation, PhantomJS, GhostDriver, Python, Testing
+Slug: automatically-capture-browser-screenshots-after-failed-python-ghostdriver-tests
+
 <a href="https://github.com/detro/ghostdriver/">GhostDriver</a> is a fantastic tool, one which I've been happily using for a while now (and have <a href="http://blog.likewise.org/2013/04/webdriver-testing-with-python-and-ghostdriver/">briefly written about</a> before).
 
 I feel it's worth mentioning that troubleshooting GhostDriver tests can seem like a challenge in and of itself if you're used to having a browser GUI to help you visually pinpoint problems in your tests.

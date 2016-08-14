@@ -1,10 +1,7 @@
----
-layout: post
-title: "Using 7zip in lieu of GNU tar on the command line"
-date: 2014-03-25 21:55
-comments: true
-categories:
----
+Title: Using 7zip in lieu of GNU tar on the command line
+Date: 2014-03-25 21:55
+Tags: 
+Slug: using-7zip-in-lieu-of-gnu-tar-on-the-command-line
 
 These days I'm accustomed to having the **7z** command available on Unix-like systems (thanks to the <a target="_blank" href="http://p7zip.sourceforge.net/">p7zip</a> project).
 

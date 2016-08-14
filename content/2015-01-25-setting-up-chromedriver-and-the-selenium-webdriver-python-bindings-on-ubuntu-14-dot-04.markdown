@@ -1,10 +1,7 @@
----
-layout: post
-title: "Setting Up ChromeDriver and the Selenium-WebDriver Python bindings on Ubuntu 14.04"
-date: 2015-01-25 01:55
-comments: true
-categories: Selenium WebDriver Automation Chrome Python Testing
----
+Title: Setting Up ChromeDriver and the Selenium-WebDriver Python bindings on Ubuntu 14.04
+Date: 2015-01-25 01:55
+Tags: Selenium, WebDriver, Automation, Chrome, Python, Testing
+Slug: setting-up-chromedriver-and-the-selenium-webdriver-python-bindings-on-ubuntu-14-dot-04
 
 This post documents how to set up an Ubuntu 14.04 64-bit machine with everything you need to develop automated tests with <a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium-WebDriver</a>, Google Chrome, and <a href="https://sites.google.com/a/chromium.org/chromedriver/">ChromeDriver</a>, using the Python 2.7 release that ships with Ubuntu.
 

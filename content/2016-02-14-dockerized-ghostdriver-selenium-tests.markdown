@@ -1,7 +1,7 @@
 Title: Dockerized Ghostdriver Selenium Tests
-date: 2016-02-14 00:23
-slug: dockerized-ghostdriver-selenium-tests
-tags: Docker, Linux, Selenium, WebDriver, Automation, PhantomJS, Python
+Date: 2016-02-14 00:23
+Tags: Docker, Linux, Selenium, WebDriver, Automation, PhantomJS, Python
+Slug: dockerized-ghostdriver-selenium-tests
 
 (tl;dr: This post describes how to build a Docker image for running Python GhostDriver/PhantomJS tests in a container.)
 
