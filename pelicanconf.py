@@ -12,9 +12,9 @@ PATH = 'content'
 # Title menu options
 MENUITEMS = [('Blog', '/'),
              ('Archives', '/archives.html')]
-NEWEST_FIRST_ARCHIVES = False
+NEWEST_FIRST_ARCHIVES = True
 
-THEME = "/Users/bill/github/billagee/pelican-octopress-theme"
+THEME = '/Users/bill/github/billagee/pelican-octopress-theme'
 
 # Times and dates
 DEFAULT_DATE_FORMAT = '%b %d, %Y'
@@ -38,16 +38,34 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (('WatirMelon', 'https://watirmelon.com/'),
+         ("A Seasoned Tester's Crystal Ball", 'http://visible-quality.blogspot.com/'),
+         ('Software Quality Assurance and Test', 'https://dmcnulla.wordpress.com/'),)
 
 # Social widget
-SOCIAL = (('github', 'https://github.com/billagee'),
-          ('stack-overflow', 'http://stackoverflow.com/users/267263/bill-agee'),)
+#SOCIAL = (('stack-overflow', 'http://stackoverflow.com/users/267263/bill-agee'),)
 
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+TWITTER_USER = '@obvioso'
+#TWITTER_WIDGET_ID = 
+TWITTER_TWEET_BUTTON = True
+TWITTER_FOLLOW_BUTTON = True
+TWITTER_TWEET_COUNT = 3
+TWITTER_SHOW_REPLIES = False
+TWITTER_SHOW_FOLLOWER_COUNT = False
+
+GITHUB_USER = 'billagee'
+GITHUB_REPO_COUNT = 3
+GITHUB_SKIP_FORK = True
+GITHUB_SHOW_USER_LINK = True
+
+SIDEBAR_IMAGE = "images/moderntimes.gif"
+#SIDEBAR_IMAGE = "images/lucy.png"
+SIDEBAR_IMAGE_ALT = "Sidebar image"
+#SIDEBAR_IMAGE_WIDTH = Width of sidebar image
+SEARCH_BOX = False
+#SITESEARCH = [default: 'http://google.com/search'] s
