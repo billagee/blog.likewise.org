@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Bill Agee'
 SITENAME = u"Bill Agee's blog"
-SITESUBTITLE = u'Technology musings with a twist of user empathy.'
+SITESUBTITLE = u'🤔 Reflections on test infrastructure, with a twist of user empathy.'
 SITEURL = ''
 
 PATH = 'content'
@@ -50,7 +50,7 @@ DEFAULT_PAGINATION = False
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
-TWITTER_USER = '@obvioso'
+TWITTER_USER = 'obvioso'
 #TWITTER_WIDGET_ID = 
 TWITTER_TWEET_BUTTON = True
 TWITTER_FOLLOW_BUTTON = True
