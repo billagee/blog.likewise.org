@@ -11,39 +11,35 @@ Here's the rundown of the steps that worked for me to get a simple Sikuli script
 
 I used version 1.7.0_51:
 
-```
-$ java -version
-java version "1.7.0_51"
-Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
-```
+    :::bash
+    $ java -version
+    java version "1.7.0_51"
+    Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
+    Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
 
 Make sure java is in your PATH, or else the Sikuli IDE will have issues.
 
 ### 2. Install OpenCV 2.4.0
 
-```
-sudo add-apt-repository ppa:gijzelaar/opencv2.4
-sudo apt-get update
-sudo apt-get libcv-dev
-```
+    :::bash
+    sudo add-apt-repository ppa:gijzelaar/opencv2.4
+    sudo apt-get update
+    sudo apt-get libcv-dev
 
 Alternatively, you can probably achieve the same by building/installing OpenCV 2.4.0 from source. I went the package route, though.
 
 ### 3. Install Tesseract 3
 
-```
-sudo apt-get install libtesseract3
-```
+    :::bash
+    sudo apt-get install libtesseract3
 
 ### 4. Download and launch sikuli-setup.jar
 
 As recommended in the Sikuli install guide, I saved the installer to ~/SikuliX and ran it there as well.
 
-```
-mkdir ~/SikuliX
-cd ~/SikuliX && java -jar sikuli-setup.jar
-```
+    :::bash
+    mkdir ~/SikuliX
+    cd ~/SikuliX && java -jar sikuli-setup.jar
 
 From there, I selected the "Pack 1" option in the GUI and let setup proceed normally.
 
@@ -51,9 +47,8 @@ From there, I selected the "Pack 1" option in the GUI and let setup proceed norm
 
 To launch the IDE, I'm using the command:
 
-```
-~/SikuliX/runIDE
-```
+    :::bash
+    ~/SikuliX/runIDE
 
 If the IDE dies without an error after you try running your script with the **Run** button in the GUI, running your .sikuli project on the command line may help uncover what's going wrong.
 
@@ -61,7 +56,5 @@ To do so, you can use the "runIDE -r" option; you'll hopefully get much more inf
 
 For example, running the project "foo.sikuli" on the command line is as simple as:
 
-```
-~/SikuliX/runIDE -r foo.sikuli
-```
-
+    :::bash
+    ~/SikuliX/runIDE -r foo.sikuli

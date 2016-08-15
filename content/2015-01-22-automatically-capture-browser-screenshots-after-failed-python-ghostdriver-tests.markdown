@@ -15,37 +15,35 @@ On that note, it's worth linking to the <a href="https://code.google.com/p/selen
 
 Here's the GhostDriver screenshot demo code - after running it, you should have a screenshot of the google.com homepage left behind in <tt>exception.png</tt>:
 
-``` python
-#!/usr/bin/env python
+    :::python
+    #!/usr/bin/env python
+    
+    # * Note: phantomjs must be in your PATH
+    #
+    # This script:
+    # - Navigates to www.google.com
+    # - Intentionally raises an exception by searching for a nonexistent element
+    # - Leaves behind a screenshot in exception.png
+    
+    import unittest
+    from selenium import webdriver
+    from selenium.webdriver.support.events import EventFiringWebDriver
+    from selenium.webdriver.support.events import AbstractEventListener
+    
+    class ScreenshotListener(AbstractEventListener):
+        def on_exception(self, exception, driver):
+            screenshot_name = "exception.png"
+            driver.get_screenshot_as_file(screenshot_name)
+            print("Screenshot saved as '%s'" % screenshot_name)
+    
+    class TestDemo(unittest.TestCase):
+        def test_demo(self):
 
-# * Note: phantomjs must be in your PATH
-#
-# This script:
-# - Navigates to www.google.com
-# - Intentionally raises an exception by searching for a nonexistent element
-# - Leaves behind a screenshot in exception.png
+            pjsdriver = webdriver.PhantomJS("phantomjs")
+            d = EventFiringWebDriver(pjsdriver, ScreenshotListener())
 
-import unittest
-from selenium import webdriver
-from selenium.webdriver.support.events import EventFiringWebDriver
-from selenium.webdriver.support.events import AbstractEventListener
-
-class ScreenshotListener(AbstractEventListener):
-    def on_exception(self, exception, driver):
-        screenshot_name = "exception.png"
-        driver.get_screenshot_as_file(screenshot_name)
-        print("Screenshot saved as '%s'" % screenshot_name)
-
-class TestDemo(unittest.TestCase):
-    def test_demo(self):
-
-        pjsdriver = webdriver.PhantomJS("phantomjs")
-        d = EventFiringWebDriver(pjsdriver, ScreenshotListener())
-
-        d.get("http://www.google.com")
-        d.find_element_by_css_selector("div.that-does-not-exist")
-
-if __name__ == '__main__':
-        unittest.main()
-```
-
+            d.get("http://www.google.com")
+            d.find_element_by_css_selector("div.that-does-not-exist")
+    
+    if __name__ == '__main__':
+            unittest.main()

@@ -4,7 +4,7 @@
 ##
 PY=${PY:-python}
 PELICAN=${PELICAN:-pelican}
-PELICANOPTS="--theme-path ~/github/billagee/pelican-octopress-theme"
+PELICANOPTS="--theme-path ~/github/billagee/pelican-octopress-theme --ignore-cache"
 
 BASEDIR=$(pwd)
 INPUTDIR=$BASEDIR/content
