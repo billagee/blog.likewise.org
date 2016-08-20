@@ -1,10 +1,7 @@
----
-layout: post
-title: "Using Heroku Postgres as a Free Cloud Database Sandbox"
-date: 2013-06-16 13:51
-comments: true
-categories: heroku postgres sql
----
+Title: Using Heroku Postgres as a Free Cloud Database Sandbox
+Date: 2013-06-16 13:51
+Tags: Heroku, Postgres, SQL
+Slug: using-heroku-postgres-as-a-free-cloud-database-sandbox
 
 Need a place to experiment with PostgreSQL, but not in the mood to set up the server locally?
 
@@ -34,7 +31,7 @@ If you're shown a pricing page with plans to choose from, first click "Dev Plan 
 
 You should see something along the lines of:
 
-{% img /images/heroku/conn_settings.png 'heroku postgres connection settings' %}
+![heroku postgres connection settings]({attach}images/heroku/conn_settings.png)
 
 - In the menu, click PSQL, and a command will appear (already selected!) that you can copy and paste into your terminal to connect the psql command-line program to your database.
 
@@ -45,9 +42,9 @@ Here's an example session, in which a crude music database is created and querie
 ```
 $ psql "dbname=YOUR_DB_NAME host=YOUR_EC2_HOST user=YOUR_USER password=YOUR_PASS port=5432 sslmode=require"
 
-d34db4d1d34=> \d
+=> \d
 No relations found.
-d34db4d1d34=>
+=>
 CREATE TABLE artists (id int, name varchar(80));
 CREATE TABLE releases (id int, name varchar(80));
 CREATE TABLE recordings (id int, artist_id int, release_id int, name varchar(80));

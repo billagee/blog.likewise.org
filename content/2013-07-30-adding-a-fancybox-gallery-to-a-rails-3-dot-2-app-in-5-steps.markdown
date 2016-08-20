@@ -1,24 +1,17 @@
----
-layout: post
-title: "Adding a fancybox gallery to a Rails 3.2 app in 5 steps"
-date: 2013-07-30 22:51
-comments: true
-categories:
-- Rails 3
-- Fancybox
-- Railscasts
-- jQuery
----
+Title: Adding a fancybox gallery to a Rails 3.2 app in 5 steps
+Date: 2013-07-30 22:51
+Tags: Rails, Fancybox, Railscasts, jQuery
+Slug: adding-a-fancybox-gallery-to-a-rails-3-dot-2-app-in-5-steps
 
 I was interested in seeing how quickly one can add a lightbox gallery to a Rails app nowadays.
 
-As it happens, there's really not much to it, especially when using the <a href="https://github.com/hecticjeff/fancybox-rails">fancybox-rails gem</a>.
+As it happens, there's really not much to it, especially when using the <a target="_blank" href="https://github.com/hecticjeff/fancybox-rails">fancybox-rails gem</a>.
 
-This post describes how to bring up an existing image viewer app (the "gallery-after" app from the github repo for <a href="http://railscasts.com/episodes/381-jquery-file-upload">Railscasts episode # 381</a>), then add fancybox support to it.
+This post describes how to bring up an existing image viewer app (the "gallery-after" app from the github repo for <a target="_blank" href="http://railscasts.com/episodes/381-jquery-file-upload">Railscasts episode # 381</a>), then add fancybox support to it.
 
 Here's what the end result will look like:
 
-{% img /images/fancybox.png 'fancybox screenshot' %}
+![Fancybox Screenshot]({attach}images/fancybox.png)
 
 Setting up a Rails app that displays images
 -------------------------------------------
@@ -113,7 +106,7 @@ Then tell bundler to install it:
 bundle
 ```
 
-- Next, per the steps on the <a href="http://hecticjeff.net/fancybox-rails/">fancybox-rails README</a>, add fancybox to your app's main JavaScript file:
+- Next, per the steps on the <a target="_blank" href="http://hecticjeff.net/fancybox-rails/">fancybox-rails README</a>, add fancybox to your app's main JavaScript file:
 
 Edit <tt>app/assets/javascripts/application.js</tt> and add the fancybox line just under the jquery require statement that will already be in the file:
 
@@ -151,7 +144,7 @@ jQuery ->
 
 The last step is to add a gallery link to the paintings partial, where the link's <tt>class</tt> attribute value is set to the "grouped_elements" identifier we added to <tt>paintings.js.coffee</tt>.
 
-Also, the gallery link's <tt>rel</tt> attribute value needs to be defined; in fancybox <a href="http://fancybox.net/howto">elements with the same rel value are considered part of the same gallery</a>, which enables flipping between the images without having to close the fancybox viewer.
+Also, the gallery link's <tt>rel</tt> attribute value needs to be defined; in fancybox <a target="_blank" href="http://fancybox.net/howto">elements with the same rel value are considered part of the same gallery</a>, which enables flipping between the images without having to close the fancybox viewer.
 
 To take care of those steps, edit <tt>app/views/paintings/_painting.html.erb</tt> and insert the "view in gallery" link shown below, above the existing edit/remove links:
 

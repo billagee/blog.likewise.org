@@ -1,12 +1,9 @@
----
-layout: post
-title: "Headless Selenium WebDriver Testing With Python and Ghost Driver"
-date: 2013-04-16 23:34
-comments: true
-categories: Selenium WebDriver Automation PhantomJS GhostDriver Python Testing
----
+Title: Headless Selenium WebDriver Testing With Python and Ghost Driver
+Date: 2013-04-16 23:34
+Tags: Selenium, WebDriver, Automation, PhantomJS, GhostDriver, Python, Testing
+Slug: webdriver-testing-with-python-and-ghostdriver
 
-<a href="https://github.com/detro/ghostdriver/">GhostDriver</a> is a project that lets you write Selenium WebDriver automation tests that run using the <a href="http://phantomjs.org/">PhantomJS</a> headless WebKit, instead of a traditional web browser.
+<a target="_blank" href="https://github.com/detro/ghostdriver/">GhostDriver</a> is a project that lets you write Selenium WebDriver automation tests that run using the <a target="_blank" href="http://phantomjs.org/">PhantomJS</a> headless WebKit, instead of a traditional web browser.
 
 Put another way, PhantomJS can replace Firefox and friends in your WebDriver scripts - and it doesn't require a display, so testing complex web apps from the command line is just about as easy as using a GUI browser. Very cool!
 
@@ -24,7 +21,7 @@ Then, use homebrew to install PhantomJS:
 brew install phantomjs
 ```
 
-If you don't want to use homebrew (or you're not on a Mac) you can simply <a href="http://phantomjs.org/download.html">download the latest PhantomJS build manually</a> and install it.
+If you don't want to use homebrew (or you're not on a Mac) you can simply <a target="_blank" href="http://phantomjs.org/download.html">download the latest PhantomJS build manually</a> and install it.
 
 Believe it or not, that is all. GhostDriver is integrated into PhantomJS, so you should now be set up to take a test drive.
 

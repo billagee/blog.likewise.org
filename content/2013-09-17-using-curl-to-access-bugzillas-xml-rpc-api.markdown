@@ -1,11 +1,9 @@
----
-layout: post
-title: "Using cURL to Access Bugzilla's XML-RPC API"
-date: 2013-09-17 14:43
-comments: true
-categories: 
----
-Today I had the chance to briefly explore <a href="http://www.bugzilla.org/docs/tip/en/html/api/">Bugzilla's API</a>.
+Title: Using cURL to Access Bugzilla's XML-RPC API
+Date: 2013-09-17 14:43
+Tags: curl
+Slug: using-curl-to-access-bugzillas-xml-rpc-api
+
+Today I had the chance to briefly explore <a target="_blank" href="https://bugzilla.readthedocs.io/en/latest/api/index.html">Bugzilla's API</a>.
 
 I used curl to experiment with the XML-RPC API a bit - in the end I just scratched the surface of what's possible, but it was interesting nonetheless.
 
@@ -13,7 +11,7 @@ Here are a few examples of things you can do:
 
 Hello World
 -----------
-A nice hello world example for the Bugzilla API is to query your Bugzilla server for its version, as <a href="http://pivotallabs.com/setting-up-and-troubleshooting-the-bugzilla-integration-in-tracker/">documented a while back</a> on the Pivotal Labs blog.
+A nice hello world example for the Bugzilla API is to query your Bugzilla server for its version, as <a target="_blank" href="http://pivotallabs.com/setting-up-and-troubleshooting-the-bugzilla-integration-in-tracker/">documented a while back</a> on the Pivotal Labs blog.
 
 This example uses Mozilla's public server at https://bugzilla.mozilla.org.
 
