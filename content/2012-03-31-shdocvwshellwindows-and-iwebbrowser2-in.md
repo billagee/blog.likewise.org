@@ -2,6 +2,7 @@ Title: SHDocVw.ShellWindows and IWebBrowser2 in C#, the easy way
 Date: 2012-03-31T10:54:00-07:00
 Tags: IWebBrowser2, Internet Explorer, SHDocVw, C#
 Slug: shdocvwshellwindows-and-iwebbrowser2-in
+Alias: /2012/03/shdocvwshellwindows-and-iwebbrowser2-in.html
 
 Not too long ago I needed to write some test setup code in C# to check for open IE windows.
 

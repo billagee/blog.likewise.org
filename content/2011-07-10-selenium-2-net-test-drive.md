@@ -2,6 +2,7 @@ Title: Selenium 2 .NET test drive
 Date: 2011-07-10T22:29:00-07:00
 Tags: Selenium, WebDriver, C#
 Slug: selenium-2-net-test-drive
+Alias: /2011/07/selenium-2-net-test-drive.html
 
 Inaugural post!
 

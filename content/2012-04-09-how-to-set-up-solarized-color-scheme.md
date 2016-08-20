@@ -2,6 +2,7 @@ Title: How to set up the Solarized color scheme for vim and iTerm2
 Date: 2012-04-09T22:18:00-07:00
 Tags: vim, iTerm2, Solarized, OS X
 Slug: how-to-set-up-solarized-color-scheme
+Alias: /2012/04/how-to-set-up-solarized-color-scheme.html
 
 ![Solarized Vim Screenshot]({attach}images/solarized.png)
 

@@ -2,6 +2,7 @@ Title: Brushing up on cURL
 Date: 2011-08-06T09:51:00-07:00
 Tags: curl
 Slug: brushing-up-on-curl
+Alias: /2011/08/brushing-up-on-curl.html
 
 The <a target="_blank" href="http://curl.haxx.se/">curl command line tool</a> is a great addition to your toolbox when working on web-related testing projects.
 

@@ -2,6 +2,7 @@ Title: Pure Ruby example of calling functions from the MS IUIAutomation COM inte
 Date: 2012-04-14T04:35:00-07:00
 Tags: Ruby, windows-pr, IUIautomation, Windows, COM
 Slug: pure-ruby-example-of-calling-functions
+Alias: /2012/04/pure-ruby-example-of-calling-functions.html
 
 ![Placeholder screenshot]({attach}images/print_root_element_name_cmd.png)
 
