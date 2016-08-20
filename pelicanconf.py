@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+PLUGINS = ['pelican_alias']
+
 AUTHOR = u'Bill Agee'
 SITENAME = u"Bill Agee's blog"
 SITESUBTITLE = u'🤔 Reflections on test infrastructure, with a twist of user empathy.'
@@ -69,3 +71,6 @@ SIDEBAR_IMAGE_ALT = "Sidebar image"
 #SIDEBAR_IMAGE_WIDTH = Width of sidebar image
 SEARCH_BOX = False
 #SITESEARCH = [default: 'http://google.com/search'] s
+
+# Moved to publishconf.py to avoid talking to GA during testing
+#GOOGLE_ANALYTICS = "UA-30353441-1"
