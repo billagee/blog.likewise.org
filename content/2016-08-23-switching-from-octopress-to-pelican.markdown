@@ -13,7 +13,7 @@ Keeping the Octopress theme turned out to be easy; the pelican-octopress-theme g
 
 - <a target="_blank" href="https://github.com/duilio/pelican-octopress-theme">https://github.com/duilio/pelican-octopress-theme</a>
 
-And for other tips, Google revealed blog posts from other folks made the Octopress-to-Pelican switch over the years. Trip reports I referred to were:
+And for other tips, Google revealed blog posts from other folks who made the Octopress-to-Pelican switch over the years. Trip reports I referred to were:
 
 - <a target="_blank" href="https://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/">https://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/</a>
 - <a target="_blank" href="http://themodernscientist.com/posts/2013/2013-06-02-my_octopelican_python_blog/">http://themodernscientist.com/posts/2013/2013-06-02-my_octopelican_python_blog/</a>
@@ -31,16 +31,16 @@ First off, after <a target="_blank" href="http://docs.getpelican.com/">reading t
 1. Create a <a target="_blank" href="https://github.com/billagee/blog.likewise.org">public github repo</a> containing the work so far
 1. Copy the old Markdown post files and images from my Octopress dir to my pelican repo
 1. Edit posts as needed to get them to display properly
-1. Back up the contents of my existing blog's s3 bucket before copying any new files to the bucket (since the new blog files will replace the old)
+1. Back up the contents of my existing blog's s3 bucket (for easy rollback if the first deploy doesn't go smoothly)
 1. Publish the new files to s3!
 
 ## The reality
 
-Based on the outline above, here's what actually happened when I started walking through my steps:
+Based on the outline above, here's what actually happened when I started carrying out the plan:
 
 1. #### Installing pelican
     
-    For this step I set up a new virtualenv and installed pelican and the markdown package:
+    For this step I set up a new virtualenv and installed the pelican and markdown packages:
     
         :::bash
         mkdir blog.likewise.org
@@ -107,7 +107,12 @@ Based on the outline above, here's what actually happened when I started walking
         # In develop_server.sh - replace the empty PELICANOPTS= var if it's present:
         PELICANOPTS="--theme-path ~/github/duilio/pelican-octopress-theme"
     
-    Restart your dev server after making that change, and reload the site in your browser - you should then see the Octopress theme in place:
+    This is a good time to make the same change in th ```Makfile``` in the root of your site, since you'll be needing it there too (note that the double quotes around the value are left out):
+    
+        :::Makefile
+        PELICANOPTS=--theme-path ~/github/billagee/pelican-octopress-theme
+    
+    Restart your dev server after making those changes, and reload the site in your browser - you should then see the Octopress theme in place:
     
         :::bash
         make stopserver && make devserver
@@ -134,7 +139,7 @@ Based on the outline above, here's what actually happened when I started walking
     
 1. #### Bring my old blog's color and sidebar customizations into pelican-octopress-theme
     
-    This is of course optional, but I wanted to change the header background color of the Octopress theme, and rearrange the sidebar.
+    This is, of course, an optional step, but I wanted to change the header background color of the Octopress theme, and rearrange the sidebar.
     
     This required a bit of tinkering, but it wasn't too bad.
     
@@ -149,6 +154,7 @@ Based on the outline above, here's what actually happened when I started walking
     There's one more step required - recompiling the theme's SASS files using the ```compass``` util. To install sass and compass and update the theme with your changes, ```cd``` to the root of your pelican-octopress-theme fork, and:
     
         :::bash
+        # Run this in your pelican-octopress-theme root dir
         gem install sass compass
         compass compile
     
@@ -175,7 +181,7 @@ Based on the outline above, here's what actually happened when I started walking
     
     This is where things began to get real. I started by coping the post files from my ```sources/_posts``` Octopress dir to ```content/```. I then committed everything as-is before making edits.
     
-    The first step was to convert the old Octopress post headers, like this one:
+    The first step was to convert the old Octopress post metadata, for example:
     
         :::markdown
         ---
@@ -186,7 +192,7 @@ Based on the outline above, here's what actually happened when I started walking
         categories: Docker Linux Selenium WebDriver Automation PhantomJS Python Testing
         ---
     
-    To a Pelican Markdown equivalent:
+    ...to the corresponding Pelican Markdown:
     
         :::markdown
         Title: Dockerized Ghostdriver Selenium Tests
@@ -194,7 +200,7 @@ Based on the outline above, here's what actually happened when I started walking
         Tags: Docker, Linux, Selenium, WebDriver, Automation, PhantomJS, Python
         Slug: dockerized-ghostdriver-selenium-tests
     
-    Note the addition of the ```Slug``` field, and replacing ```categories:``` with ```Tags```.
+    Note the addition of the ```Slug``` field, and replacing ```categories:``` with ```Tags```, since Pelican offers both categories AND tags. And Pelican tags seem akin to Octopress categories.
     
 1. #### Edit posts as needed to get them to display properly
     
@@ -204,11 +210,11 @@ Based on the outline above, here's what actually happened when I started walking
     
     <script src="https://gist.github.com/billagee/b9bf022f1ffbc1c1d3e04e0c49c18ac5.js"></script>
     
-1. #### Migrating Octopress image tags
+1. #### Converting Octopress image tags
     
     There was another extra step required to get images in old posts to display - moving Octopress Markdown posts to Pelican means embedded images that use the Octopress ```{% img %}``` tag won't carry over directly without edits (or the <a target="_blank" href="https://github.com/jakevdp/pelican-plugins/tree/liquid_tags/liquid_tags">liquid_tags Pelican plugin</a>).
     
-    I didn't have too many images in my old posts, so I just replaced my old Octopress image tag use, such as:
+    I didn't have too many images in my old posts, so I just replaced my old Octopress image tags, such as:
     
         :::markdown
         {% img /images/fancybox.png 'fancybox screenshot' %}
@@ -238,11 +244,13 @@ Based on the outline above, here's what actually happened when I started walking
     
     I ran into a hiccup here - after publishing my files to s3, the MIME type guessing done during the upload apparently didn't work, so my main.css file was served by s3 as text/plain.
     
-    This resulted in the published copy of the blog in s3 displaying without CSS being applied; so, it appeared to be totally broken in all browsers I tried.
+    This resulted in the published copy of the blog in s3 displaying without CSS being applied; so, the appearance of the blog was totally broken in all browsers I tried. Oops.
     
-    I worked around that by using the AWS console to manually change the Content-Type header value S3 serves up for my ```main.css``` file. (I still need to find a real fix for this, or at least a way of doing it with ```s3cmd```.)
+    Presumably this will only affect you if you're publishing to s3 like me; I didn't try deploying with Dropbox or the other options.
     
-    Anyway, here's one way to fix that problem manually:
+    I worked around the problem by using the AWS console to manually change the Content-Type header value S3 serves up for my ```main.css``` file. (I still need to find a real fix for this, or at least a way of doing it with ```s3cmd```.)
+    
+    Steps for the fix were:
     
     - After ```make s3_upload``` completes, log in to the AWS s3 console.
     
@@ -250,7 +258,7 @@ Based on the outline above, here's what actually happened when I started walking
     
     - Right-click ```main.css```, and view its properties
     
-    - Under "Metadata", set the Content-Type key to "text/css" and save.
+    - Under "Metadata", set the Content-Type key to ```text/css``` and save.
     
 1. #### Using the pelican-alias plugin to create .html aliases to posts
     
@@ -260,11 +268,16 @@ Based on the outline above, here's what actually happened when I started walking
     
     I then realized a few of those old Blogger-era HTML posts were still showing up in Google results, with their original .html extensions (which Pelican and Octopress don't create).
     
-    In the Octopress blog I'd resorted to manually created s3 aliases for those old posts at publish time, in the bash script I used to upload everything with s3cmd.
+    In the Octopress blog I'd resorted to creating s3 aliases for those old posts at publish time, in the bash script I used to upload everything with s3cmd.
     
     That resulted in posts whose URLs ended in ```2012-08-foo/``` getting matching ```2012-08-foo.html``` siblings, in case someone visited the old Blogger URL.
     
     In Pelican, you can use the <a target="_blank" href="https://pypi.python.org/pypi/pelican-alias">pelican-alias plugin</a> to create .html aliases for posts, which worked fine for me. See that plugin's docs for more info.
+    
+    For more it boiled down to installing and activating the plugin, then adding an extra bit of metadata to the ancient posts that needed an .html alias:
+    
+        :::Markdown
+        Alias: /2011/07/selenium-2-net-test-drive.html
     
 1. #### Google Analytics
     
@@ -280,9 +293,9 @@ Based on the outline above, here's what actually happened when I started walking
     
 1. #### Github sidebar fix
     
-    Either due to a bug in the theme, or as a result of my sidebar tweaks, the Github chunk of the sidebar in the theme was refusing to fetch the list of my github repos.
+    Either due to a bug in the theme, or as a result of my sidebar tweaks, the Github chunk of the sidebar was refusing to fetch the list of my github repos.
     
-    To get that working, I had to make JS tweak in my fork's copy of ```pelican-octopress-theme/templates/_includes/github.html``` - namely pulling in jQuery.
+    To get that working, I made this JS tweak in my fork's copy of ```pelican-octopress-theme/templates/_includes/github.html``` - namely pulling in jQuery.
     
     This seems rather...not great, but it works for now:
     
