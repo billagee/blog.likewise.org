@@ -14,15 +14,17 @@ PLUGINS = ['pelican_alias']
 
 RELATIVE_URLS = False
 
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
-CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
-
 DELETE_OUTPUT_DIRECTORY = True
 
 AUTHOR = u'Bill Agee'
 SITENAME = u"Bill Agee's blog"
 SITESUBTITLE = u'🤔 Reflections on test infrastructure, with a twist of user empathy.'
 SITEURL = 'http://blog.likewise.org'
+
+#FEED_ALL_ATOM = 'feeds/all.atom.xml'
+#CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
+FEED_DOMAIN = SITEURL
+FEED_ATOM = 'atom.xml'
 
 PATH = 'content'
 
