@@ -3,7 +3,9 @@ Date: 2016-08-23 07:00
 Tags: Pelican
 Slug: switching-from-octopress-to-pelican
 
-## Or, what we blog about when we blog about blogs
+### Or: What we blog about when we blog about blogs
+
+### 🐙 ➡️  🐍 
 
 This post is the story of how I switched the underlying framework for this blog from <a target="_blank" href="http://octopress.org/">Octopress</a> to <a target="_blank" href="http://blog.getpelican.com/">Pelican</a>.
 
