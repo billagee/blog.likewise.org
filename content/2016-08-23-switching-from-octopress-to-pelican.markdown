@@ -109,7 +109,7 @@ Based on the outline above, here's what actually happened when I started carryin
         # In develop_server.sh - replace the empty PELICANOPTS= var if it's present:
         PELICANOPTS="--theme-path ~/github/duilio/pelican-octopress-theme"
     
-    This is a good time to make the same change in th ```Makfile``` in the root of your site, since you'll be needing it there too (note that the double quotes around the value are left out):
+    This is a good time to make the same change in the ```Makefile``` in the root of your site, since you'll be needing it there too (note that the double quotes around the value are left out):
     
         :::Makefile
         PELICANOPTS=--theme-path ~/github/billagee/pelican-octopress-theme
