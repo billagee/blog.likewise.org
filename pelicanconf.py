@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 # git clone --recursive https://github.com/getpelican/pelican-plugins
 #PLUGIN_PATHS = ['/Users/bill/github/getpelican/pelican-plugins']
 #PLUGINS = ['pelican_alias', 'photos']
-#PLUGINS = ['pelican_alias']
+PLUGINS = ['pelican_alias']
 
 # Photos plugin config
 #PHOTO_LIBRARY = "/Users/bill/github/billagee/blog.likewise.org/content/photos-orig"
