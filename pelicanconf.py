@@ -2,7 +2,14 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-PLUGINS = ['pelican_alias']
+# To set up the plugins dir, perform this clone in ~/github/getpelican :
+# git clone --recursive https://github.com/getpelican/pelican-plugins
+#PLUGIN_PATHS = ['/Users/bill/github/getpelican/pelican-plugins']
+#PLUGINS = ['pelican_alias', 'photos']
+#PLUGINS = ['pelican_alias']
+
+# Photos plugin config
+#PHOTO_LIBRARY = "/Users/bill/github/billagee/blog.likewise.org/content/photos-orig"
 
 AUTHOR = u'Bill Agee'
 SITENAME = u"Bill Agee's blog"

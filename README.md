@@ -22,6 +22,10 @@ EOL
 To bring up a development server on http://localhost:8000/:
 
 ```
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+
 make html
 make devserver
 ```
