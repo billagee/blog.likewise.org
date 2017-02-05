@@ -13,29 +13,61 @@ Or do you have a fondness (maybe a _burn-in_ desire?) for a time when screensave
 
 If so, this post describes how I installed XScreenSaver (and optional-but-essential add-ons like the <a target="_blank" href="https://www.youtube.com/watch?v=Q54NVuxhGso">CompanionCube screensaver</a>) on Ubuntu 16.04.
 
-Here's the apt-get command I use to kick things off:
+This script takes care of everything you need - just paste this into a shell script and run it, or paste each command one at a time.
+
+These steps are based on the Unity setup notes in <a target="_blank" href="https://www.jwz.org/xscreensaver/man1.html">the xscreensaver man page</a>:
 
 ```
+# Install xscreensaver and addons:
+
 sudo apt-get install \
-  xscreensaver xscreensaver-data-extra \
-  xscreensaver-gl xscreensaver-gl-extra
+    xscreensaver xscreensaver-data-extra \
+    xscreensaver-gl xscreensaver-gl-extra
+
+# Uninstall the gnome-screensaver package:
+
+sudo apt-get remove gnome-screensaver
+
+# Make GNOME's "Lock Screen" use xscreensaver:
+
+sudo ln -sf /usr/bin/xscreensaver-command \
+            /usr/bin/gnome-screensaver-command
+
+# Turn off Unity's built-in blanking.
+# NOTE: For more options see 'gsettings list-keys org.gnome.desktop.screensaver'
+
+# These two are equivalent to going to "System Settings / Brightness & Lock" and:
+# * Setting "Turn screen off when inactive for" to "Never"
+# * Switching the "Lock" toggle button to OFF
+gsettings set org.gnome.desktop.session idle-delay 0
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+
+# Configure xscreensaver as a startup application:
+
+mkdir -p ~/.config/autostart
+
+echo "[Desktop Entry]
+Type=Application
+Exec=xscreensaver -nosplash
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=xscreensaver
+Name=xscreensaver
+Comment[en_US]=
+Comment=
+" > ~/.config/autostart/xscreensaver.desktop
 ```
 
-Once the install is complete, here's how I run the config util to pick the list of screensavers to run (among other settings):
+Once the install is complete, launch the `xscreensaver-demo` config util to pick the list of screensavers to run (among other settings).
+
+Useful settings here are the "Blank After" and "Lock Screen After" values. You can change those if you need to lock your screen after a shorter idle time than the default values:
 
 ```
 xscreensaver-demo
 ```
 
-If you're ever curious what other optional packages exist, search with:
-
-```
-apt-cache search xscreensaver
-```
-
-And read <a target="_blank" href="https://www.jwz.org/xscreensaver/man1.html">the XScreenSaver manpage</a> for more info!
-
-For my own reference, these are the screensavers I currently have enabled in my config file (```/home/bill/.xscreensaver```):
+Mostly for my own reference, these are the screensavers I currently have enabled in my config file (```/home/bill/.xscreensaver```):
 
 ```
 bill@foo:~$ cat /home/bill/.xscreensaver | grep "^  GL"
@@ -46,6 +78,7 @@ bill@foo:~$ cat /home/bill/.xscreensaver | grep "^  GL"
   GL: 				molecule -root				   \n\
   GL: 				glmatrix -root				   \n\
   GL: 				polyhedra -root				   \n\
+  GL: 				glhanoi -root				   \n\
   GL: 				tangram -root				   \n\
   GL: 				topblock -root				   \n\
   GL: 				companioncube -root -count 9		   \n\
