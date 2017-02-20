@@ -42,3 +42,7 @@ To publish with prod settings:
 make s3_upload_dry_run
 make s3_upload
 ```
+
+To generate animated .gif screencasts in posts, I've used these instructions:
+
+https://gist.github.com/dergachev/4627207

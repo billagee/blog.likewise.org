@@ -83,5 +83,5 @@ SEARCH_BOX = False
 # Moved to publishconf.py to avoid talking to GA during testing
 #GOOGLE_ANALYTICS = "UA-30353441-1"
 
-#DISQUS_SITENAME = "billagee-blog"
+DISQUS_SITENAME = "billagee-blog"
 # The discus plugin isn't working with the theme; there's a JS error in embed.js

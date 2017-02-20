@@ -89,5 +89,5 @@ SEARCH_BOX = False
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = ""
+DISQUS_SITENAME = "billagee-blog"
 GOOGLE_ANALYTICS = "UA-30353441-1"
