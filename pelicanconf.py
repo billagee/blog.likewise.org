@@ -23,7 +23,8 @@ MENUITEMS = [('Blog', '/'),
              ('Archives', '/archives.html')]
 NEWEST_FIRST_ARCHIVES = True
 
-THEME = '/Users/bill/github/billagee/pelican-octopress-theme'
+#THEME = '/Users/bill/github/billagee/pelican-octopress-theme'
+THEME = '/Users/bill/github/billagee/blog.likewise.org/pelican-octopress-theme'
 
 # Times and dates
 DEFAULT_DATE_FORMAT = '%b %d, %Y'

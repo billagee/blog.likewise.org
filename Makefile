@@ -1,6 +1,6 @@
 PY?=python
 PELICAN?=pelican
-PELICANOPTS=--theme-path ~/github/billagee/pelican-octopress-theme
+PELICANOPTS=--theme-path ~/github/billagee/blog.likewise.org/pelican-octopress-theme
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
