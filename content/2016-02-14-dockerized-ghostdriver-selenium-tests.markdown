@@ -116,29 +116,29 @@ The build command output should show the ```apt-get update``` and ```apt-get ins
 Now try executing your Python script in a container, with ```docker run```.
 
     :::bash
-    docker run --rm myrepo/ghostdriver-py27
+    docker run -it --rm myrepo/ghostdriver-py27
 
 When the container exits, you should see the output of your Python script.
 
 e.g., if your Python script is the hi world example, the run output should resemble:
 
     :::bash
-    $ docker run --rm myrepo/ghostdriver-py27
+    $ docker run -it --rm myrepo/ghostdriver-py27
     Hello world!
 
 And here is the output when running the GhostDriver example script from <a target="_blank" href="https://github.com/billagee/ghostdriver-py27/blob/master/google-search-test.py">https://github.com/billagee/ghostdriver-py27/blob/master/google-search-test.py</a>:
 
     :::bash
-    $ docker run --rm myrepo/ghostdriver-py27
-    .
-    ----------------------------------------------------------------------
-    Ran 1 test in 2.350s
-
-    OK
+    $ docker run -it --rm myrepo/ghostdriver-py27
     Navigating to 'http://www.google.com'...
     Checking search box presence...
     Performing search request...
-    current_url is now 'http://www.google.com/search?hl=en&source=hp&biw=&bih=&q=selenium&gbv=2&oq=selenium&gs_l=heirloom-hp.12...185.189.0.214.8.1.0.0.0.0.0.0..0.0....0...1ac.1.34.heirloom-hp..8.0.0.pxP-og9Td_o'
+    current_url is now 'http://www.google.com/search?hl=en&source=hp&biw=&bih=&q=selenium&gbv=2&oq=selenium'
+    .
+    ----------------------------------------------------------------------
+    Ran 1 test in 2.530s
+    
+    OK
 
 Note that if you make changes to the Python script, re-running the ```docker build``` command will add your new changes to the image.
 
