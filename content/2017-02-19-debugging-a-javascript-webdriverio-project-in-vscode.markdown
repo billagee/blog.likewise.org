@@ -158,6 +158,7 @@ Now, paste the config shown below above the other two premade launch.json config
             "type": "node",
             "request": "launch",
             "port": 5859,
+            "protocol": "legacy",
             "name": "WebdriverIO",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/wdio",
             "windows": {
@@ -176,10 +177,6 @@ Now, paste the config shown below above the other two premade launch.json config
 ```
 
 Now, delete the two premade configurations in the launch.json list (```Launch Program``` and ```Attach to Process```). We won't be using them.
-
-On my machine the final launch.json resembles:
-
-![vscode-launch-json]({attach}images/vscode/launch-json.png)
 
 ### Enable debugging in wdio.conf.js
 
