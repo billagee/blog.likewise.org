@@ -36,7 +36,7 @@ Java(TM) SE Runtime Environment (build 1.8.0_05-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)
 ```
 
-## Installing nvm and Node.JS
+## Installing Node.JS
 
 Both WebdriverIO and VS Code will expect you to provide your own installation of Node.JS. For that, you have a few choices:
 
@@ -46,32 +46,24 @@ Both WebdriverIO and VS Code will expect you to provide your own installation of
 
 * Or, <a target="_blank" href="https://github.com/creationix/nvm">nvm</a> works great as well (it allows you to install multiple node versions).
 
-For this tutorial, I'll be using nvm to install node 6, since as of this writing (early 2018) I encountered problems debugging with node 8.
+For this tutorial, I'll be using homebrew to install node. (Visit <a target="_blank" href="https://brew.sh/">https://brew.sh/</a> for more info on installing homebrew.)
 
-Here's how I installed nvm (see <a target="_blank" href="https://github.com/creationix/nvm">the docs</a> for the latest instructions for this step):
-
-```
-# Install nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-
-# Activate nvm without opening a new terminal
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-```
-
-And to install node, I ran:
+To install node, I ran:
 
 ```
-$ nvm install 6
+$ brew install node@6
+
+$ echo 'export PATH="/usr/local/opt/node@6/bin:$PATH"' >> ~/.bash_profile
+
+$ source ~/.bash_profile
 ```
 
-The node and npm versions that gave me were:
+Check the node and npm versions you now have active - my install ended up with:
 
 ```
 $ node -v && npm -v
 v6.12.3
-3.10.10
+5.6.0
 ```
 
 That environment will be what I use for the rest of this tutorial.
@@ -158,15 +150,9 @@ $ ./node_modules/.bin/wdio
 
 If you haven't installed <a target="_blank" href="https://code.visualstudio.com/">VS Code</a> yet, please do so now :)
 
-Once that's done, use the ```File > Open``` menu in VS Code to open the ```webdriverio-test``` directory you created earlier.
+(The version of VS Code I used here was 1.20.0.)
 
-### User settings configuration
-
-As of vscode 1.19.2, I had to add this to my settings.json file (which can be opened via the menu ```Code > Preferences > Settings```):
-
-```
-    "terminal.integrated.shellArgs.osx": [],
-```
+Use the ```File > Open``` menu in VS Code to open the ```webdriverio-test``` directory you created earlier.
 
 ### launch.json configuration
 
@@ -184,8 +170,6 @@ Click Node.js in the menu that appears - this will open a boilerplate launch.jso
 
 Delete the contents of launch.json, and insert the following text:
 
-(UPDATED: Thanks to Wiktor Zychla for pointers on configuring the inspector protocol here! See his post at: http://www.wiktorzychla.com/2017/08/debugging-javascript-webdriver-io-in.html)
-
 ```
 {
     "version": "0.2.0",
@@ -193,11 +177,11 @@ Delete the contents of launch.json, and insert the following text:
         {
             "type": "node",
             "request": "launch",
-            "protocol": "inspector",
-            "port": 5859,
+            "protocol": "legacy",
             "address": "localhost",
-            "name": "WebdriverIO",
+            "port": 5859,
             "timeout": 20000,
+            "name": "WebdriverIO",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/wdio",
             "windows": {
                 "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/wdio.cmd"
@@ -218,22 +202,22 @@ Delete the contents of launch.json, and insert the following text:
 
 ### Enable debugging in wdio.conf.js
 
-Open ```wdio.conf.js``` in the editor.
+Open the ```wdio.conf.js``` in the editor. (It should be in the root of your project.)
 
 Just under the ```exports.config = {``` line, add these lines:
 
 ```
     debug: true,
-    execArgv: ['--inspect=127.0.0.1:5859'],
+    execArgv: ['--debug=127.0.0.1:5859'],
 ```
 
 This allows VS Code to connect to the wdio runner for debugging.
 
-If you forget this step, the first time you try to debug the IDE will likely show you the error message ```Cannot connect to runtime process```
+If you forget this step, the first time you try to debug the IDE will likely show you the error message: ```Cannot connect to runtime process```
 
 ### First run
 
-Now it's time for action! Open the ```test/specs/foo.spec.js``` file in the IDE, making sure it's the active tab in the editor (so that the file name is plugged into the ```${relativeFile}``` in your debug config in ```launch.json```).
+Now it's time to run a test! Open the ```test/specs/foo.spec.js``` file in the IDE, and make sure it's the active tab in the editor (so that the file name will be what the IDE plugs into ```${relativeFile}``` in your debug config in ```launch.json```).
 
 Now click the green play button next to DEBUG in the IDE. You should see your test run to completion, since no breakpoints are set.
 
