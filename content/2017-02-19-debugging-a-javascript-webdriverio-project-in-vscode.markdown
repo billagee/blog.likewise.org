@@ -27,42 +27,56 @@ Things will go more smoothly later if you first ensure you have `java` in your s
 
 So, install a JRE for your platform before going further (if you don't already have one).
 
+The version I used when writing this tutorial was:
+
+```
+$ java -version
+java version "1.8.0_05"
+Java(TM) SE Runtime Environment (build 1.8.0_05-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.5-b02, mixed mode)
+```
+
 ## Installing Node.JS
 
 Both WebdriverIO and VS Code will expect you to provide your own installation of Node.JS. For that, you have a few choices:
 
 * You can visit <a target="_blank" href="https://nodejs.org/">https://nodejs.org/</a> and download an installer.
 
+* Mac folks can use Homebrew or MacPorts.
+
 * Or, <a target="_blank" href="https://github.com/creationix/nvm">nvm</a> works great as well (it allows you to install multiple node versions).
 
-* Or, Mac folks can use Homebrew or MacPorts - I used MacPorts to install nodejs6 and npm4 as shown here:
+For this tutorial, I'll be using homebrew to install node. (Visit <a target="_blank" href="https://brew.sh/">https://brew.sh/</a> for more info on installing homebrew.)
+
+To install node, I ran:
 
 ```
-sudo port install nodejs6 npm4
+$ brew install node@6
+
+$ echo 'export PATH="/usr/local/opt/node@6/bin:$PATH"' >> ~/.bash_profile
+
+$ source ~/.bash_profile
 ```
 
-As of this writing, the versions MacPorts installs are as follows:
+Check the node and npm versions you now have active - my install ended up with:
 
 ```
 $ node -v && npm -v
-v6.9.1
-4.0.2
+v6.12.3
+5.6.0
 ```
 
-Those versions will be what I use for the rest of this tutorial.
+That environment will be what I use for the rest of this tutorial.
 
 ## Creating a WebdriverIO Project
 
 These steps are based on the developer guide at <a target="_blank" href="http://webdriver.io/guide.html">http://webdriver.io/guide.html</a>, with a few small changes.
 
-I'll keep this brief and to the point, so we can quickly get to the VS Code specifics - see the dev guide link above if you need more details on a particular step.
-
 ```
-# Create a new dir for your project
-mkdir webdriverio-test && cd webdriverio-test
-
-# Create a boilerplate package.json
-npm init -y
+# Create a new dir for your project, with a boilerplate package.json
+mkdir webdriverio-test && \
+  cd webdriverio-test && \
+  npm init -y
 
 # Install WebdriverIO, and tell npm to add it as a dependency in package.json
 npm install webdriverio --save-dev
@@ -87,6 +101,7 @@ Here's what my final settings resembled:
 ? Where are your test specs located? ./test/specs/**/*.js
 ? Which reporter do you want to use?
 ? Do you want to add a service to your test setup?  selenium-standalone - https://github.com/webdriverio/wdio-selenium-standalone-service
+? Shall I install the services for you? Yes
 ? Level of logging verbosity silent
 ? In which directory should screenshots gets saved if a command fails? ./errorShots/
 ? What is the base url? http://localhost
@@ -116,12 +131,12 @@ describe('webdriver.io page', function() {
 
         browser.url('http://webdriver.io');
         var title = browser.getTitle();
-        assert.equal(title, 'WebdriverIO - Selenium 2.0 javascript bindings for nodejs');
+        assert.equal(title, 'WebdriverIO - WebDriver bindings for Node.js');
     });
 });
 ```
 
-To see if all is well, run the ```./node_modules/.bin/wdio``` command to launch your test - you should see a browser launch, and eventually a passing result will be printed:
+To see if all is well, run the following command to launch your test - you should see a browser launch, and eventually a passing result will be printed:
 
 ```
 $ ./node_modules/.bin/wdio
@@ -135,7 +150,9 @@ $ ./node_modules/.bin/wdio
 
 If you haven't installed <a target="_blank" href="https://code.visualstudio.com/">VS Code</a> yet, please do so now :)
 
-Once that's done, use the ```File > Open``` menu in VS Code to open the ```webdriverio-test``` folder you created earlier.
+(The version of VS Code I used here was 1.20.0.)
+
+Use the ```File > Open``` menu in VS Code to open the ```webdriverio-test``` directory you created earlier.
 
 ### launch.json configuration
 
@@ -149,16 +166,21 @@ Then click the small gear in the debug menu to open launch.json:
 
 ![vscode-config-gear]({attach}images/vscode/config-gear.png)
 
-Click Node.js in the menu that appears to generate a boilerplate launch.json.
+Click Node.js in the menu that appears - this will open a boilerplate launch.json.
 
-Now, paste the config shown below above the other two premade launch.json configs:
+Delete the contents of launch.json, and insert the following text:
 
 ```
+{
+    "version": "0.2.0",
+    "configurations": [
         {
             "type": "node",
             "request": "launch",
-            "port": 5859,
             "protocol": "legacy",
+            "address": "localhost",
+            "port": 5859,
+            "timeout": 20000,
             "name": "WebdriverIO",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/wdio",
             "windows": {
@@ -170,30 +192,32 @@ Now, paste the config shown below above the other two premade launch.json config
             // (e.g., a file in test/spec/):
             "args":[
                 "--spec", "${relativeFile}"
-                // To run a specific file, you can also do:
+                // To run a specific file, you can use:
                 //"--spec", "test/specs/foo.spec.js"
             ]
         }
+    ]
+}
 ```
-
-Now, delete the two premade configurations in the launch.json list (```Launch Program``` and ```Attach to Process```). We won't be using them.
 
 ### Enable debugging in wdio.conf.js
 
-Open ```wdio.conf.js``` in the editor, and just under the ```exports.config = {``` line, set the ```debug: true``` option:
+Open the ```wdio.conf.js``` in the editor. (It should be in the root of your project.)
+
+Just under the ```exports.config = {``` line, add these lines:
 
 ```
-exports.config = {
     debug: true,
+    execArgv: ['--debug=127.0.0.1:5859'],
 ```
 
 This allows VS Code to connect to the wdio runner for debugging.
 
-If you forget this step, the first time you try to debug the IDE will likely show you the error message ```Cannot connect to runtime process (timeout after 10000 ms).```
+If you forget this step, the first time you try to debug the IDE will likely show you the error message: ```Cannot connect to runtime process```
 
 ### First run
 
-Now it's time for action! Open the ```foo.spec.js``` file in the IDE, making sure it's the active tab in the editor (so that the file name is plugged into the ```${relativeFile}``` in your debug config in ```launch.json```).
+Now it's time to run a test! Open the ```test/specs/foo.spec.js``` file in the IDE, and make sure it's the active tab in the editor (so that the file name will be what the IDE plugs into ```${relativeFile}``` in your debug config in ```launch.json```).
 
 Now click the green play button next to DEBUG in the IDE. You should see your test run to completion, since no breakpoints are set.
 
